@@ -113,7 +113,6 @@
     $(document).on('submit', '#updateUser', function(e) {
       e.preventDefault();
       //var tr = $(this).closest('tr');
-      var city = $('#cityField').val();
       var username = $('#nameField').val();
       var mobile = $('#mobileField').val();
       var email = $('#emailField').val();
