@@ -1,6 +1,6 @@
 <?php include('connection.php'); ?>
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <!-- Required meta tags -->
