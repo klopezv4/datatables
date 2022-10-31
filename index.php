@@ -1,6 +1,6 @@
 <?php include('connection.php'); ?>
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <!-- Required meta tags -->
@@ -21,8 +21,8 @@
 
 <body>
   <div class="container-fluid">
-    <h2 class="text-center">Welcome to Datatable</h2>
-    <p class="datatable design text-center">Welcome to Datatable</p>
+    <h2 class="text-center">Medicos</h2>
+    <p class="datatable design text-center">Control de Medicos</p>
     <div class="row">
       <div class="container">
         <div class="btnAdd">
