@@ -167,8 +167,8 @@
         success: function(data) {
           var json = JSON.parse(data);
           $('#nameField').val(json.nombre);
-          $('#especialidadField').val(json.especialidad);
           $('#mobileField').val(json.telefono);
+          $('#especialidadField').val(json.especialidad);
           $('#id').val(id);
           $('#trid').val(trid);
         }
