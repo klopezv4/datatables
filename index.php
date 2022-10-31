@@ -34,9 +34,9 @@
             <table id="example" class="table">
               <thead>
                 <th>Id</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Mobile</th>
+                <th>Nombre</th>
+                <th>Telefono</th>
+                <th>Especialidad</th>
                 <th>Options</th>
               </thead>
               <tbody>
@@ -74,7 +74,7 @@
         },
         "aoColumnDefs": [{
             "bSortable": false,
-            "aTargets": [5]
+            "aTargets": [4]
           },
 
         ]
@@ -84,8 +84,8 @@
       e.preventDefault();
       var nombre = $('#addUserField').val();
       var telefono = $('#addMobileField').val();
-      var especialidad = $('#addEmailField').val();
-      if (city != '' && nombre != '' && telefono != '' && especialidad != '') {
+      var especialidad = $('#addEspecalidadField').val();
+      if (nombre != '' && telefono != '' && especialidad != '') {
         $.ajax({
           url: "add_user.php",
           type: "post",
@@ -113,20 +113,19 @@
     $(document).on('submit', '#updateUser', function(e) {
       e.preventDefault();
       //var tr = $(this).closest('tr');
-      var username = $('#nameField').val();
-      var mobile = $('#mobileField').val();
-      var email = $('#emailField').val();
+      var nombre = $('#nameField').val();
+      var telefono = $('#mobileField').val();
+      var especialidad = $('#especialidadField').val();
       var trid = $('#trid').val();
       var id = $('#id').val();
-      if (city != '' && username != '' && mobile != '' && email != '') {
+      if (nombre != '' && telefono!= '' && especialidad != '') {
         $.ajax({
           url: "update_user.php",
           type: "post",
           data: {
-            city: city,
-            username: username,
-            mobile: mobile,
-            email: email,
+            nombre: nombre,
+            telefono: telefono,
+            especialidad: especialidad,
             id: id
           },
           success: function(data) {
@@ -139,9 +138,9 @@
               // table.cell(parseInt(trid) - 1,2).data(email);
               // table.cell(parseInt(trid) - 1,3).data(mobile);
               // table.cell(parseInt(trid) - 1,4).data(city);
-              var button = '<td><a href="javascript:void();" data-id="' + id + '" class="btn btn-info btn-sm editbtn">Edit</a>  <a href="#!"  data-id="' + id + '"  class="btn btn-danger btn-sm deleteBtn">Delete</a></td>';
+              var button = '<td><a href="javascript:void();" data-id="' + id + '" class="btn btn-info btn-sm editbtn">Editar</a>  <a href="#!"  data-id="' + id + '"  class="btn btn-danger btn-sm deleteBtn">Borrar</a></td>';
               var row = table.row("[id='" + trid + "']");
-              row.row("[id='" + trid + "']").data([id, username, email, mobile, city, button]);
+              row.row("[id='" + trid + "']").data([id, nombre, telefono, especialidad, button]);
               $('#exampleModal').modal('hide');
             } else {
               alert('failed');
@@ -167,10 +166,9 @@
         type: 'post',
         success: function(data) {
           var json = JSON.parse(data);
-          $('#nameField').val(json.username);
-          $('#emailField').val(json.email);
-          $('#mobileField').val(json.mobile);
-          $('#cityField').val(json.city);
+          $('#nameField').val(json.nombre);
+          $('#especialidadField').val(json.especialidad);
+          $('#mobileField').val(json.telefono);
           $('#id').val(id);
           $('#trid').val(trid);
         }
@@ -181,7 +179,7 @@
       var table = $('#example').DataTable();
       event.preventDefault();
       var id = $(this).data('id');
-      if (confirm("Are you sure want to delete this User ? ")) {
+      if (confirm("Confirma que desea eliminar este dato? ")) {
         $.ajax({
           url: "delete_user.php",
           data: {
@@ -215,7 +213,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Update User</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Actualizar</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -223,36 +221,30 @@
             <input type="hidden" name="id" id="id" value="">
             <input type="hidden" name="trid" id="trid" value="">
             <div class="mb-3 row">
-              <label for="nameField" class="col-md-3 form-label">Name</label>
+              <label for="nameField" class="col-md-3 form-label">Nombre</label>
               <div class="col-md-9">
                 <input type="text" class="form-control" id="nameField" name="name">
               </div>
             </div>
             <div class="mb-3 row">
-              <label for="emailField" class="col-md-3 form-label">Email</label>
+              <label for="especialidadField" class="col-md-3 form-label">Especialidad</label>
               <div class="col-md-9">
-                <input type="email" class="form-control" id="emailField" name="email">
+                <input type="text" class="form-control" id="especialidadField" name="email">
               </div>
             </div>
             <div class="mb-3 row">
-              <label for="mobileField" class="col-md-3 form-label">Mobile</label>
+              <label for="mobileField" class="col-md-3 form-label">Telefono</label>
               <div class="col-md-9">
                 <input type="text" class="form-control" id="mobileField" name="mobile">
               </div>
             </div>
-            <div class="mb-3 row">
-              <label for="cityField" class="col-md-3 form-label">City</label>
-              <div class="col-md-9">
-                <input type="text" class="form-control" id="cityField" name="City">
-              </div>
-            </div>
             <div class="text-center">
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary">Hecho</button>
             </div>
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>
@@ -262,42 +254,36 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Añadir</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form id="addUser" action="">
             <div class="mb-3 row">
-              <label for="addUserField" class="col-md-3 form-label">Name</label>
+              <label for="addUserField" class="col-md-3 form-label">Nombre</label>
               <div class="col-md-9">
                 <input type="text" class="form-control" id="addUserField" name="name">
               </div>
             </div>
             <div class="mb-3 row">
-              <label for="addEmailField" class="col-md-3 form-label">Email</label>
+              <label for="addEspecalidadField" class="col-md-3 form-label">Especialidad</label>
               <div class="col-md-9">
-                <input type="email" class="form-control" id="addEmailField" name="email">
+                <input type="text" class="form-control" id="addEspecalidadField" name="email">
               </div>
             </div>
             <div class="mb-3 row">
-              <label for="addMobileField" class="col-md-3 form-label">Mobile</label>
+              <label for="addMobileField" class="col-md-3 form-label">Telefono</label>
               <div class="col-md-9">
                 <input type="text" class="form-control" id="addMobileField" name="mobile">
               </div>
             </div>
-            <div class="mb-3 row">
-              <label for="addCityField" class="col-md-3 form-label">City</label>
-              <div class="col-md-9">
-                <input type="text" class="form-control" id="addCityField" name="City">
-              </div>
-            </div>
             <div class="text-center">
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary">Hecho</button>
             </div>
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>
